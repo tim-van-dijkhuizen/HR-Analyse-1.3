@@ -20,11 +20,11 @@ class BookItemService(Service):
 
         return models
 
-    def getBookItemById(self, book_itemId):
+    def getBookItemById(self, bookItemId):
         cursor = self.app.getService('database').createCursor()
 
         # Execute select
-        cursor.execute('SELECT * from book_items WHERE id=?', [ book_itemId ])
+        cursor.execute('SELECT * from book_items WHERE id=?', [ bookItemId ])
 
         # Parse result
         row = cursor.fetchone()
@@ -34,11 +34,11 @@ class BookItemService(Service):
 
         return BookItem.fromDataRow(row)
 
-    def saveBookItem(self, book_item):
-        isNew = book_item.id == None
+    def saveBookItem(self, bookItem):
+        isNew = bookItem.id == None
 
         # Validate model
-        if not book_item.validate():
+        if not bookItem.validate():
             return False
 
         database = self.app.getService('database')
@@ -46,27 +46,27 @@ class BookItemService(Service):
         cursor = database.createCursor()
 
         sqlArgs = [
-            book_item.bookId
+            bookItem.bookId
         ]
 
         # Insert or update
         if isNew:
             cursor.execute("INSERT INTO book_items (bookId) VALUES (?);", sqlArgs)
         else:
-            sqlArgs = sqlArgs + [ book_item.id ]
+            sqlArgs = sqlArgs + [ bookItem.id ]
             cursor.execute("UPDATE book_items SET bookId=? WHERE id=?;", sqlArgs)
 
         connection.commit()
 
         return cursor.rowcount != 0
 
-    def deleteBookItem(self, book_item):
+    def deleteBookItem(self, bookItem):
         database = self.app.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
         # Delete from database
-        cursor.execute("DELETE FROM book_items WHERE id=?", [ book_item.id ])
+        cursor.execute("DELETE FROM book_items WHERE id=?", [ bookItem.id ])
         connection.commit()
 
         return cursor.rowcount != 0
