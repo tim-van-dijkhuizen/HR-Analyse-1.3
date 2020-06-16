@@ -27,7 +27,7 @@ class App(Component):
         try:
             return self.serviceMap[handle]
         except KeyError:
-            return None
+            raise Exception('No service with handle ' + handle + ' exists')
     
     # Registers a service and returns the instance.
     def registerService(self, service, config):

@@ -1,24 +1,49 @@
 from services_database import DatabaseService
-from services_customers import CustomersService
-from services_commands import CommandsService
+
+from services_customers import CustomerService
+from services_authors import AuthorService
+from services_books import BookService
+
+from services_commands import CommandService
 from commands_help import CommandHelp
 from commands_stop import CommandStop
 from commands_customer_list import CommandCustomerList
 from commands_customer_create import CommandCustomerCreate
 from commands_customer_edit import CommandCustomerEdit
 from commands_customer_delete import CommandCustomerDelete
+from commands_author_list import CommandAuthorList
+from commands_author_create import CommandAuthorCreate
+from commands_author_edit import CommandAuthorEdit
+from commands_author_delete import CommandAuthorDelete
+from commands_book_list import CommandBookList
+from commands_book_create import CommandBookCreate
+from commands_book_edit import CommandBookEdit
+from commands_book_delete import CommandBookDelete
 
 services = [
     [ DatabaseService, {  } ],
 
-    [ CustomersService, {} ],
+    [ CustomerService, {} ],
+    [ AuthorService, {} ],
+    [ BookService, {} ],
 
-    [ CommandsService, { 'commands': {
+    [ CommandService, { 'commands': {
         'help': CommandHelp(),
         'stop': CommandStop(),
+
         'customer/list': CommandCustomerList(),
         'customer/create': CommandCustomerCreate(),
         'customer/edit': CommandCustomerEdit(),
-        'customer/delete': CommandCustomerDelete()
+        'customer/delete': CommandCustomerDelete(),
+
+        'author/list': CommandAuthorList(),
+        'author/create': CommandAuthorCreate(),
+        'author/edit': CommandAuthorEdit(),
+        'author/delete': CommandAuthorDelete(),
+
+        'book/list': CommandBookList(),
+        'book/create': CommandBookCreate(),
+        'book/edit': CommandBookEdit(),
+        'book/delete': CommandBookDelete()
     } } ]
 ]

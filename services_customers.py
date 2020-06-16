@@ -1,7 +1,7 @@
 from base_service import Service
 from models_customer import Customer
 
-class CustomersService(Service):
+class CustomerService(Service):
 
     def getHandle(self): 
         return 'customers'

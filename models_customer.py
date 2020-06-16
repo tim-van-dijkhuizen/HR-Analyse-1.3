@@ -1,8 +1,9 @@
-from models_person import Person
+from base_model import Model
 
-class Customer(Person):
+class Customer(Model):
 
-    id = None
+    firstName = None
+    lastName = None
     gender = None
     language = None
     street = None

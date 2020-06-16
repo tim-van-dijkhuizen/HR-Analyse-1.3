@@ -2,7 +2,7 @@ import traceback
 from base_service import Service
 from errors_argument_exception import ArgumentError
 
-class CommandsService(Service):
+class CommandService(Service):
 
     commands = []
 

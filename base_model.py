@@ -5,6 +5,9 @@ class Model(Component):
     # List of validation errors
     errors = {}
 
+    # Base attributes
+    id = None
+
     # Validates the model
     def validate(self):
         return True

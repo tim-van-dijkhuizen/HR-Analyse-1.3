@@ -41,21 +41,21 @@ class DatabaseService(Service):
             "country VARCHAR(50) NOT NULL," +
             "language VARCHAR(50) NOT NULL," +
             "pages INTEGER NOT NULL," +
-            "FOREIGN KEY(authorId) REFERENCES authors(id)" +
+            "FOREIGN KEY(authorId) REFERENCES authors(id) ON DELETE CASCADE" +
         ")")
 
         cursor.execute("CREATE TABLE IF NOT EXISTS book_items (" +
             "id INTEGER PRIMARY KEY," +
             "bookId INTEGER NOT NULL," +
-            "FOREIGN KEY(bookId) REFERENCES books(id)" +
+            "FOREIGN KEY(bookId) REFERENCES books(id) ON DELETE CASCADE" +
         ")")
 
         cursor.execute("CREATE TABLE IF NOT EXISTS book_loans (" +
             "id INTEGER PRIMARY KEY," +
             "bookItemId INTEGER NOT NULL," +
             "customerId INTEGER NOT NULL," +
-            "FOREIGN KEY(bookItemId) REFERENCES book_items(id)," +
-            "FOREIGN KEY(customerId) REFERENCES customers(id)" +
+            "FOREIGN KEY(bookItemId) REFERENCES book_items(id) ON DELETE CASCADE," +
+            "FOREIGN KEY(customerId) REFERENCES customers(id) ON DELETE CASCADE" +
         ")")
         
         self._connection.commit()
