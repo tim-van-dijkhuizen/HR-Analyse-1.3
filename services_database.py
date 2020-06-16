@@ -14,6 +14,9 @@ class DatabaseService(Service):
         # Create tables if not exists
         cursor = self._connection.cursor()
 
+        # Enable foreign keys
+        cursor.execute('PRAGMA foreign_keys=ON')
+
         cursor.execute("CREATE TABLE IF NOT EXISTS customers (" +
             "id INTEGER PRIMARY KEY," +
             "firstName VARCHAR(50) NOT NULL," +

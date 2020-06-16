@@ -24,7 +24,7 @@ class CommandBookEdit(Command):
         book.authorId = self.askQuestion('Enter the authorId:', book.authorId)
         book.year = self.askQuestion('Enter the year:', book.year)
         book.country = self.askQuestion('Enter the country:', book.country)
-        book.languages = self.askQuestion('Enter the languages:', book.languages)
+        book.language = self.askQuestion('Enter the language:', book.language)
         book.pages = self.askQuestion('Enter the number of pages:', book.pages)
 
     	# Try to save

@@ -34,7 +34,7 @@ class Book(Model):
             self.addError('year', 'Year is required')
             return False
 
-        if len(self.year) > 4:
+        if len(str(self.year)) > 4:
             self.addError('year', 'Year cannot be longer than 4 characters')
             return False
 

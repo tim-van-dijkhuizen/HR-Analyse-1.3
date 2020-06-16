@@ -3,6 +3,7 @@ from services_database import DatabaseService
 from services_customers import CustomerService
 from services_authors import AuthorService
 from services_books import BookService
+from services_book_items import BookItemService
 
 from services_commands import CommandService
 from commands_help import CommandHelp
@@ -19,6 +20,9 @@ from commands_book_list import CommandBookList
 from commands_book_create import CommandBookCreate
 from commands_book_edit import CommandBookEdit
 from commands_book_delete import CommandBookDelete
+from commands_book_item_list import CommandBookItemList
+from commands_book_item_create import CommandBookItemCreate
+from commands_book_item_delete import CommandBookItemDelete
 
 services = [
     [ DatabaseService, {  } ],
@@ -26,6 +30,7 @@ services = [
     [ CustomerService, {} ],
     [ AuthorService, {} ],
     [ BookService, {} ],
+    [ BookItemService, {} ],
 
     [ CommandService, { 'commands': {
         'help': CommandHelp(),
@@ -44,6 +49,10 @@ services = [
         'book/list': CommandBookList(),
         'book/create': CommandBookCreate(),
         'book/edit': CommandBookEdit(),
-        'book/delete': CommandBookDelete()
+        'book/delete': CommandBookDelete(),
+
+        'book-item/list': CommandBookItemList(),
+        'book-item/create': CommandBookItemCreate(),
+        'book-item/delete': CommandBookItemDelete()
     } } ]
 ]
