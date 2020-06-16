@@ -15,7 +15,7 @@ class CommandService(Service):
             args = line.split(' ')
             command = args.pop(0)
 
-            # Execute command on new thread
+            # Try to run the command
             if command in self.commands:
                 try:
                     self.commands[command].execute(self.app, args)
