@@ -1,5 +1,6 @@
 from base_app import App
 from base_model import Model
+from helpers_validation_helper import ValidationHelper
 
 class Book(Model):
 
@@ -11,28 +12,54 @@ class Book(Model):
     pages = None
 
     def validate(self):
+        authorService = App.instance.getService('authors')
+
         if self.title == None:
             self.addError('title', 'Title is required')
+            return False
+
+        if len(self.title) > 255:
+            self.addError('title', 'Title cannot be longer than 255 characters')
             return False
 
         if self.authorId == None:
             self.addError('authorId', 'Author is required')
             return False
 
+        if authorService.getAuthorById(self.authorId) == None:
+            self.addError('authorId', 'Author does not exist')
+            return False
+
         if self.year == None:
             self.addError('year', 'Year is required')
+            return False
+
+        if len(self.year) > 4:
+            self.addError('year', 'Year cannot be longer than 4 characters')
             return False
 
         if self.country == None:
             self.addError('country', 'Country is required')
             return False
 
+        if len(self.country) > 50:
+            self.addError('country', 'Country cannot be longer than 50 characters')
+            return False
+
         if self.language == None:
             self.addError('language', 'Language is required')
             return False
 
+        if len(self.language) > 50:
+            self.addError('language', 'Language cannot be longer than 50 characters')
+            return False
+
         if self.pages == None:
             self.addError('pages', 'Pages is required')
+            return False
+
+        if ValidationHelper.parseInt(self.pages) == False:
+            self.addError('pages', 'Pages must be a valid number')
             return False
 
         return True

@@ -14,39 +14,71 @@ class Customer(Model):
 
     def validate(self):
         if self.firstName == None:
-            self.addError('firstName', 'Voornaam mag niet leeg zijn')
+            self.addError('firstName', 'Firstname is required')
+            return False
+
+        if len(self.firstName) > 50:
+            self.addError('firstName', 'Firstname cannot be longer than 50 characters')
             return False
 
         if self.lastName == None:
-            self.addError('lastName', 'Achternaam mag niet leeg zijn')
+            self.addError('lastName', 'Lastname is required')
             return False
 
-        if self.gender == None:
-            self.addError('gender', 'Geslacht mag niet leeg zijn')
+        if len(self.lastName) > 50:
+            self.addError('lastName', 'Lastname cannot be longer than 50 characters')
+            return False
+
+        if self.gender != 'M' and self.gender != 'F':
+            self.addError('gender', 'Gender must be either M (male) or F (female)')
             return False
 
         if self.language == None:
-            self.addError('language', 'Taal mag niet leeg zijn')
+            self.addError('language', 'Language is required')
+            return False
+
+        if len(self.language) > 50:
+            self.addError('language', 'Language cannot be longer than 50 characters')
             return False
 
         if self.street == None:
-            self.addError('street', 'Straat mag niet leeg zijn')
+            self.addError('street', 'Street is required')
+            return False
+
+        if len(self.street) > 50:
+            self.addError('street', 'Street cannot be longer than 50 characters')
             return False
 
         if self.zipcode == None:
-            self.addError('zipcode', 'Postcode mag niet leeg zijn')
+            self.addError('zipcode', 'Zipcode is required')
+            return False
+
+        if len(self.zipcode) > 20:
+            self.addError('zipcode', 'Zipcode cannot be longer than 20 characters')
             return False
 
         if self.city == None:
-            self.addError('city', 'Stad mag niet leeg zijn')
+            self.addError('city', 'City is required')
+            return False
+
+        if len(self.city) > 50:
+            self.addError('city', 'City cannot be longer than 50 characters')
             return False
 
         if self.email == None:
-            self.addError('email', 'Email mag niet leeg zijn')
+            self.addError('email', 'Email is required')
+            return False
+
+        if len(self.email) > 255:
+            self.addError('email', 'Email cannot be longer than 255 characters')
             return False
 
         if self.telephone == None:
-            self.addError('telephone', 'Telefoonnummer mag niet leeg zijn')
+            self.addError('telephone', 'Telephone is required')
+            return False
+
+        if len(self.telephone) > 255:
+            self.addError('telephone', 'Telephone cannot be longer than 255 characters')
             return False
 
         return True

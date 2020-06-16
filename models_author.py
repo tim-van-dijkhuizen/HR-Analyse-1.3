@@ -7,11 +7,19 @@ class Author(Model):
 
     def validate(self):
         if self.firstName == None:
-            self.addError('firstName', 'Voornaam mag niet leeg zijn')
+            self.addError('firstName', 'Firstname is required')
+            return False
+
+        if len(self.firstName) > 50:
+            self.addError('firstName', 'Firstname cannot be longer than 50 characters')
             return False
 
         if self.lastName == None:
-            self.addError('lastName', 'Achternaam mag niet leeg zijn')
+            self.addError('lastName', 'Lastname is required')
+            return False
+
+        if len(self.lastName) > 50:
+            self.addError('lastName', 'Lastname cannot be longer than 50 characters')
             return False
 
         return True
