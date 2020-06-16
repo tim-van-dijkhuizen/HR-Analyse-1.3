@@ -11,12 +11,13 @@ class DatabaseService(Service):
     def init(self):
         self._connection = sqlite3.connect('PLS.db')
 
-        # Create tables if not exists
-        cursor = self._connection.cursor()
+        # Create cursor
+        cursor = self.createCursor()
 
         # Enable foreign keys
         cursor.execute('PRAGMA foreign_keys=ON')
 
+        # Create tables if not exists
         cursor.execute("CREATE TABLE IF NOT EXISTS customers (" +
             "id INTEGER PRIMARY KEY," +
             "firstName VARCHAR(50) NOT NULL," +
