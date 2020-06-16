@@ -51,6 +51,7 @@ class Customer(Person):
         return True
 
     def __str__(self):
+        id = str(self.id)
         firstName = str(self.firstName)
         lastName = str(self.lastName)
         gender = str(self.gender)
@@ -61,4 +62,19 @@ class Customer(Person):
         email = str(self.email)
         telephone = str(self.telephone)
 
-        return firstName + ' - ' + lastName + ' - ' + gender + ' - ' + language + ' - ' + street + ' - ' + zipcode + ' - ' + city + ' - ' + email + ' - ' + telephone
+        return id + ' - ' + firstName + ' - ' + lastName + ' - ' + gender + ' - ' + language + ' - ' + street + ' - ' + zipcode + ' - ' + city + ' - ' + email + ' - ' + telephone
+
+    @staticmethod
+    def fromDataRow(row):
+        return Customer({
+            'id': row[0],
+            'firstName': row[1],
+            'lastName': row[2],
+            'gender': row[3],
+            'language': row[4],
+            'street': row[5],
+            'zipcode': row[6],
+            'city': row[7],
+            'email': row[8],
+            'telephone': row[9]
+        })

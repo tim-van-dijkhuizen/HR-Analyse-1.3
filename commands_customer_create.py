@@ -1,12 +1,11 @@
 from base_command import Command
-from errors_argument_exception import ArgumentError
 from helpers_validation_helper import ValidationHelper
 from models_customer import Customer
 
 class CommandCustomerCreate(Command):
 
     def getUsage(self):
-        return 'customer/create <firstName> <lastName> <gender> <language> <street> <zipcode> <city> <email> <telephone>'
+        return 'customer/create'
 
     def execute(self, app, args):
         customerService = app.getService('customers')
@@ -35,8 +34,8 @@ class CommandCustomerCreate(Command):
             'telephone': telephone
         })
 
-    	# Save customer
+    	# Try to save
         if customerService.saveCustomer(customer):
-            print('Successfully saved customer')
+            self.showInfo('Successfully created customer')
         else:
             ValidationHelper.printErrorList(customer)

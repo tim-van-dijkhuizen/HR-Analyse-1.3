@@ -1,3 +1,4 @@
+import traceback
 from base_service import Service
 from errors_argument_exception import ArgumentError
 
@@ -21,6 +22,6 @@ class CommandsService(Service):
                 except ArgumentError as e:
                     print(str(e))
                 except Exception as e:
-                    print('An internal error occurred: ' + str(e))
+                    traceback.print_exc()
             else:
                 print('Unknown command')

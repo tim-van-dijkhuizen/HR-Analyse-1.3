@@ -9,27 +9,30 @@ class CustomersService(Service):
     def getCustomers(self):
         models = []
 
-        # Get database
-        connection = self.app.getService('database').getConnection()
-        cursor = connection.cursor()
+        # Create cursor
+        cursor = self.app.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from customers')
 
         for row in cursor.fetchall():
-            models.append(Customer({
-                'firstName': row[0],
-                'lastName': row[1],
-                'gender': row[2],
-                'language': row[3],
-                'street': row[4],
-                'zipcode': row[5],
-                'city': row[6],
-                'email': row[7],
-                'telephone': row[8]
-            }))
+            models.append(Customer.fromDataRow(row))
 
         return models
+
+    def getCustomerById(self, customerId):
+        cursor = self.app.getService('database').createCursor()
+
+        # Execute select
+        cursor.execute('SELECT * from customers WHERE id=?', [ customerId ])
+
+        # Parse result
+        row = cursor.fetchone()
+
+        if row == None:
+            return None
+
+        return Customer.fromDataRow(row)
 
     def saveCustomer(self, customer):
         isNew = customer.id == None
@@ -38,8 +41,9 @@ class CustomersService(Service):
         if not customer.validate():
             return False
 
-        connection = self.app.getService('database').getConnection()
-        cursor = connection.cursor()
+        database = self.app.getService('database')
+        connection = database.getConnection()
+        cursor = database.createCursor()
 
         sqlArgs = [
             customer.firstName,
@@ -57,9 +61,21 @@ class CustomersService(Service):
         if isNew:
             cursor.execute("INSERT INTO customers (firstName, lastName, gender, language, street, zipcode, city, email, telephone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlArgs)
         else:
-            sqlArgs = sqlArgs.append(customer.id)
+            sqlArgs = sqlArgs + [ customer.id ]
             cursor.execute("UPDATE customers SET firstName=?, lastName=?, gender=?, language=?, street=?, zipcode=?, city=?, email=?, telephone=? WHERE id=?;", sqlArgs)
 
         connection.commit()
-        return True
+
+        return cursor.rowcount != 0
+
+    def deleteCustomer(self, customer):
+        database = self.app.getService('database')
+        connection = database.getConnection()
+        cursor = database.createCursor()
+
+        # Delete from database
+        cursor.execute("DELETE FROM customers WHERE id=?", [ customer.id ])
+        connection.commit()
+
+        return cursor.rowcount != 0
 

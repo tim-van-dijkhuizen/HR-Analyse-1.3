@@ -62,3 +62,6 @@ class DatabaseService(Service):
 
     def getConnection(self):
         return self._connection
+
+    def createCursor(self):
+        return self._connection.cursor()

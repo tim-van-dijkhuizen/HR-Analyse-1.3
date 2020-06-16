@@ -8,5 +8,11 @@ class CommandCustomerList(Command):
     def execute(self, app, args):
         customerService = app.getService('customers')
 
+        self.showEmpty()
+        self.showInfo('id - firstName - lastName - gender - language - street - zipcode - city - email - telephone')
+        self.showLine()
+
         for customer in customerService.getCustomers():
-            print(customer)
+            self.showInfo(customer)
+
+        self.showEmpty()
