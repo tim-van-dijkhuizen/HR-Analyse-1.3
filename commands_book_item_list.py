@@ -13,7 +13,14 @@ class CommandBookItemList(Command):
         self.showInfo('id - bookId')
         self.showLine()
 
-        for bookItem in bookItemsService.getBookItems():
+        # Get book items
+        bookItems = bookItemsService.getBookItems()
+
+        # Show message when there are no results
+        if not bookItems:
+            self.showError('No book items found')
+
+        for bookItem in bookItems:
             self.showInfo(bookItem)
 
         self.showEmpty()

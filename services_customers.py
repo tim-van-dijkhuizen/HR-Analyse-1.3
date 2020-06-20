@@ -7,6 +7,7 @@ class CustomerService(Service):
     def getHandle(self): 
         return 'customers'
 
+    # Returns all customers
     def getCustomers(self):
         models = []
 
@@ -21,6 +22,7 @@ class CustomerService(Service):
 
         return models
 
+    # Returns a customer by its id or None
     def getCustomerById(self, customerId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -35,6 +37,7 @@ class CustomerService(Service):
 
         return Customer.fromDataRow(row)
 
+    # Saves a customer
     def saveCustomer(self, customer):
         isNew = customer.id == None
 
@@ -70,6 +73,7 @@ class CustomerService(Service):
 
         return cursor.rowcount != 0
 
+    # Deletes a customer
     def deleteCustomer(self, customer):
         database = App.instance.getService('database')
         connection = database.getConnection()

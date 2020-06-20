@@ -7,6 +7,7 @@ class BookLoanService(Service):
     def getHandle(self): 
         return 'bookLoans'
 
+    # Returns all book loans
     def getBookLoans(self):
         models = []
 
@@ -21,6 +22,7 @@ class BookLoanService(Service):
 
         return models
 
+    # Returns a book loan by its id or None
     def getBookLoanById(self, bookLoanId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -35,6 +37,7 @@ class BookLoanService(Service):
 
         return BookLoan.fromDataRow(row)
 
+    # Returns a book loan by its itemId or None
     def getBookLoanByItem(self, bookItemId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -49,6 +52,7 @@ class BookLoanService(Service):
 
         return BookLoan.fromDataRow(row)
 
+    # Saves a book loan
     def saveBookLoan(self, bookLoan):
         isNew = bookLoan.id == None
 
@@ -77,6 +81,7 @@ class BookLoanService(Service):
 
         return cursor.rowcount != 0
 
+    # Deletes a book loan
     def deleteBookLoan(self, bookLoan):
         database = App.instance.getService('database')
         connection = database.getConnection()

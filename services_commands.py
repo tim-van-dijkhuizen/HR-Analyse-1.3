@@ -11,12 +11,13 @@ class CommandService(Service):
         return 'commands'
 
     def init(self):
+        # Keep running until the app is shut down
         while App.instance.running:
             line = input()
             args = line.split(' ')
             command = args.pop(0)
 
-            # Try to run the command
+            # Try to run the command if it exists
             if command in self.commands:
                 try:
                     self.commands[command].execute(args)

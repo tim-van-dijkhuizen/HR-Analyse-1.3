@@ -18,6 +18,7 @@ from commands_author_create import CommandAuthorCreate
 from commands_author_edit import CommandAuthorEdit
 from commands_author_delete import CommandAuthorDelete
 from commands_book_list import CommandBookList
+from commands_book_search import CommandBookSearch
 from commands_book_create import CommandBookCreate
 from commands_book_edit import CommandBookEdit
 from commands_book_delete import CommandBookDelete
@@ -27,6 +28,11 @@ from commands_book_item_delete import CommandBookItemDelete
 from commands_book_loan_list import CommandBookLoanList
 from commands_book_loan_create import CommandBookLoanCreate
 from commands_book_loan_delete import CommandBookLoanDelete
+
+# =======================================================
+# This file is used to register all services.
+# You can pass a dictionary to configure the service.
+# =======================================================
 
 services = [
     [ DatabaseService, {  } ],
@@ -52,6 +58,7 @@ services = [
         'author/delete': CommandAuthorDelete(),
 
         'book/list': CommandBookList(),
+        'book/search': CommandBookSearch(),
         'book/create': CommandBookCreate(),
         'book/edit': CommandBookEdit(),
         'book/delete': CommandBookDelete(),

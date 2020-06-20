@@ -7,6 +7,7 @@ class AuthorService(Service):
     def getHandle(self): 
         return 'authors'
 
+    # Returns all authors
     def getAuthors(self):
         models = []
 
@@ -21,6 +22,7 @@ class AuthorService(Service):
 
         return models
 
+    # Returns an author by its id or None
     def getAuthorById(self, authorId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -35,6 +37,7 @@ class AuthorService(Service):
 
         return Author.fromDataRow(row)
 
+    # Saves an author
     def saveAuthor(self, author):
         isNew = author.id == None
 
@@ -63,6 +66,7 @@ class AuthorService(Service):
 
         return cursor.rowcount != 0
 
+    # Deletes an author
     def deleteAuthor(self, author):
         database = App.instance.getService('database')
         connection = database.getConnection()

@@ -29,7 +29,6 @@ class BookLoan(Model):
             self.addError('customerId', 'Customer does not exist')
             return False
 
-        # Make sure the book item is available
         if bookLoanService.getBookLoanByItem(self.bookItemId) != None:
             self.addError('bookItemId', 'Book item is not available')
             return False

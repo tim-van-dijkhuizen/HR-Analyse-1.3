@@ -13,7 +13,14 @@ class CommandBookLoanList(Command):
         self.showInfo('id - bookItemId - customerId')
         self.showLine()
 
-        for bookLoan in bookLoansService.getBookLoans():
+        # Get book loans
+        bookLoans = bookLoansService.getBookLoans()
+
+        # Show message when there are no results
+        if not bookLoans:
+            self.showError('No book loans found')
+
+        for bookLoan in bookLoans:
             self.showInfo(bookLoan)
 
         self.showEmpty()

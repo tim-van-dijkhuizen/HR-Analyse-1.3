@@ -64,8 +64,10 @@ class DatabaseService(Service):
         
         self._connection.commit()
 
+    # Returns the database connection
     def getConnection(self):
         return self._connection
 
+    # Creates a new cursor
     def createCursor(self):
         return self._connection.cursor()

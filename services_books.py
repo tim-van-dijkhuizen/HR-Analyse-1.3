@@ -7,6 +7,7 @@ class BookService(Service):
     def getHandle(self): 
         return 'books'
 
+    # Returns all books
     def getBooks(self):
         models = []
 
@@ -21,6 +22,7 @@ class BookService(Service):
 
         return models
 
+    # Returns a book by its id or None
     def getBookById(self, bookId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -35,6 +37,29 @@ class BookService(Service):
 
         return Book.fromDataRow(row)
 
+    # Returns all books matching the query
+    def searchBooks(self, query):
+        cursor = App.instance.getService('database').createCursor()
+        models = []
+        param = '%' + query + '%'
+
+        # Execute select
+        cursor.execute('SELECT * from books LEFT JOIN authors ON books.authorId = authors.id WHERE ' +
+            'title LIKE ? ' +
+            'OR authors.firstName || " " || authors.lastName LIKE ? ' +
+            'OR year LIKE ? ' +
+            'OR country LIKE ? ' +
+            'OR language LIKE ? ' +
+            'OR pages LIKE ?'
+        , [ param, param, param, param, param, param ])
+
+        # Parse result
+        for row in cursor.fetchall():
+            models.append(Book.fromDataRow(row))
+
+        return models
+
+    # Saves a book
     def saveBook(self, book):
         isNew = book.id == None
 
@@ -67,6 +92,7 @@ class BookService(Service):
 
         return cursor.rowcount != 0
 
+    # Deletes a book
     def deleteBook(self, book):
         database = App.instance.getService('database')
         connection = database.getConnection()

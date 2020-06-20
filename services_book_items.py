@@ -7,6 +7,7 @@ class BookItemService(Service):
     def getHandle(self): 
         return 'bookItems'
 
+    # Returns all book items
     def getBookItems(self):
         models = []
 
@@ -21,6 +22,7 @@ class BookItemService(Service):
 
         return models
 
+    # Returns a book item by its id or None
     def getBookItemById(self, bookItemId):
         cursor = App.instance.getService('database').createCursor()
 
@@ -35,6 +37,7 @@ class BookItemService(Service):
 
         return BookItem.fromDataRow(row)
 
+    # Saves a book item
     def saveBookItem(self, bookItem):
         isNew = bookItem.id == None
 
@@ -62,6 +65,7 @@ class BookItemService(Service):
 
         return cursor.rowcount != 0
 
+    # Deletes a book item
     def deleteBookItem(self, bookItem):
         database = App.instance.getService('database')
         connection = database.getConnection()

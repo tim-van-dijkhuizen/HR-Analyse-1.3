@@ -13,7 +13,14 @@ class CommandCustomerList(Command):
         self.showInfo('id - firstName - lastName - gender - language - street - zipcode - city - email - telephone')
         self.showLine()
 
-        for customer in customerService.getCustomers():
+        # Get customers
+        customers = customerService.getCustomers()
+
+        # Show message when there are no results
+        if not customers:
+            self.showError('No customers found')
+
+        for customer in customers:
             self.showInfo(customer)
 
         self.showEmpty()

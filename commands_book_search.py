@@ -1,25 +1,27 @@
 from base_app import App
 from base_command import Command
 
-class CommandBookList(Command):
+class CommandBookSearch(Command):
 
     def getUsage(self):
-        return 'book/list'
+        return 'book/search'
 
     def execute(self, args):
         bookService = App.instance.getService('books')
+
+        # Find book
+        query = self.askQuestion("What book are you looking for?")
+        books = bookService.searchBooks(query)
 
         self.showEmpty()
         self.showInfo('id - title - authorId - year - country - language - pages')
         self.showLine()
 
-        # Get books
-        books = bookService.getBooks()
-
         # Show message when there are no results
         if not books:
-            self.showError('No books found')
+            self.showError('No books match the given criteria')
 
+        # Print books
         for book in books:
             self.showInfo(book)
 

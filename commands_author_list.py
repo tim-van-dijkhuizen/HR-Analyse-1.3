@@ -13,7 +13,14 @@ class CommandAuthorList(Command):
         self.showInfo('id - firstName - lastName')
         self.showLine()
 
-        for author in authorService.getAuthors():
+        # Get authors
+        authors = authorService.getAuthors()
+
+        # Show message when there are no results
+        if not authors:
+            self.showError('No authors found')
+
+        for author in authors:
             self.showInfo(author)
 
         self.showEmpty()

@@ -13,6 +13,7 @@ class CommandHelp(Command):
         self.showInfo('Available commands:')
         self.showLine()
 
+        # Prints the usage of all commands
         for command in commandService.commands.values():
             self.showInfo(command.getUsage())
 
