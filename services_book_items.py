@@ -52,6 +52,7 @@ class BookItemService(Service):
         # Insert or update
         if isNew:
             cursor.execute("INSERT INTO book_items (bookId) VALUES (?);", sqlArgs)
+            bookItem.id = cursor.lastrowid
         else:
             sqlArgs = sqlArgs + [ bookItem.id ]
             cursor.execute("UPDATE book_items SET bookId=? WHERE id=?;", sqlArgs)

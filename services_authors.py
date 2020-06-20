@@ -53,6 +53,7 @@ class AuthorService(Service):
         # Insert or update
         if isNew:
             cursor.execute("INSERT INTO authors (firstName, lastName) VALUES (?, ?);", sqlArgs)
+            author.id = cursor.lastrowid
         else:
             sqlArgs = sqlArgs + [ author.id ]
             cursor.execute("UPDATE authors SET firstName=?, lastName=? WHERE id=?;", sqlArgs)

@@ -60,6 +60,7 @@ class CustomerService(Service):
         # Insert or update
         if isNew:
             cursor.execute("INSERT INTO customers (firstName, lastName, gender, language, street, zipcode, city, email, telephone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlArgs)
+            customer.id = cursor.lastrowid
         else:
             sqlArgs = sqlArgs + [ customer.id ]
             cursor.execute("UPDATE customers SET firstName=?, lastName=?, gender=?, language=?, street=?, zipcode=?, city=?, email=?, telephone=? WHERE id=?;", sqlArgs)

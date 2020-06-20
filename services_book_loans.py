@@ -67,6 +67,7 @@ class BookLoanService(Service):
         # Insert or update
         if isNew:
             cursor.execute("INSERT INTO book_loans (bookItemId, customerId) VALUES (?, ?);", sqlArgs)
+            bookLoan.id = cursor.lastrowid
         else:
             sqlArgs = sqlArgs + [ bookLoan.id ]
             cursor.execute("UPDATE book_loans SET bookItemId=?, customerId=? WHERE id=?;", sqlArgs)
