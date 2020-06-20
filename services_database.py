@@ -1,15 +1,25 @@
 import sqlite3
 from base_service import Service
+from errors_argument_exception import ArgumentError
+from helpers_file_helper import FileHelper
 
 class DatabaseService(Service):
 
+    # Constants
+    backupFolder = 'backups/'
+
+    _databasePath = None
     _connection = None
 
     def getHandle(self): 
         return 'database'
 
     def init(self):
-        self._connection = sqlite3.connect('PLS.db')
+        self._databasePath = FileHelper.createFilePath('PLS.db')
+        FileHelper.createParentDirectories(self._databasePath)
+
+        # Create connection
+        self.connect()
 
         # Create cursor
         cursor = self.createCursor()
@@ -64,6 +74,21 @@ class DatabaseService(Service):
         
         self._connection.commit()
 
+    # Creates a connection
+    def connect(self):
+        if self._connection != None:
+            raise Exception('Database already connected')
+
+        self._connection = sqlite3.connect(self._databasePath)
+
+    # Disconnect
+    def disconnect(self):
+        if self._connection == None:
+            raise Exception('Database already disconnected')
+
+        self._connection.close()
+        self._connection = None
+
     # Returns the database connection
     def getConnection(self):
         return self._connection
@@ -71,3 +96,46 @@ class DatabaseService(Service):
     # Creates a new cursor
     def createCursor(self):
         return self._connection.cursor()
+
+    # Returns all backup names
+    def getBackups(self):
+        return FileHelper.listFiles(self._getBackupDirectory())
+
+    # Creates a backup
+    def createBackup(self, fileName):
+        dest = self._getBackupPath(fileName)
+
+        # Make sure the file doesn't exist
+        if dest.exists():
+            raise ArgumentError('A backup with that name already exists')
+
+        # Copy DB to dest
+        FileHelper.copyFile(self._databasePath, dest)
+
+        return dest
+
+    # Restores a backup
+    def restoreBackup(self, fileName):
+        backup = self._getBackupPath(fileName)
+
+        # Make sure the file exist
+        if not backup.exists():
+            raise ArgumentError('That backup does not exist')
+
+        # Close connection
+        self.disconnect()
+
+        # Copy backup to DB
+        FileHelper.copyFile(backup, self._databasePath)
+
+        # Reconnect
+        self.connect()
+
+    # Returns the backup directory path
+    def _getBackupDirectory(self):
+        return FileHelper.createFilePath(self.backupFolder)
+
+    # Returns the backup path of a file
+    def _getBackupPath(self, fileName):
+        return FileHelper.createFilePath(self.backupFolder + fileName + '.db')
+

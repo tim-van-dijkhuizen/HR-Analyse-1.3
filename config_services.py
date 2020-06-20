@@ -28,6 +28,9 @@ from commands_book_item_delete import CommandBookItemDelete
 from commands_book_loan_list import CommandBookLoanList
 from commands_book_loan_create import CommandBookLoanCreate
 from commands_book_loan_delete import CommandBookLoanDelete
+from commands_backup_list import CommandBackupList
+from commands_backup_create import CommandBackupCreate
+from commands_backup_restore import CommandBackupRestore
 
 # =======================================================
 # This file is used to register all services.
@@ -69,6 +72,10 @@ services = [
 
         'book-loan/list': CommandBookLoanList(),
         'book-loan/create': CommandBookLoanCreate(),
-        'book-loan/delete': CommandBookLoanDelete()
+        'book-loan/delete': CommandBookLoanDelete(),
+
+        'backup/list': CommandBackupList(),
+        'backup/create': CommandBackupCreate(),
+        'backup/restore': CommandBackupRestore()
     } } ]
 ]
