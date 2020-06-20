@@ -1,3 +1,4 @@
+from base_app import App
 from base_service import Service
 from models_customer import Customer
 
@@ -10,7 +11,7 @@ class CustomerService(Service):
         models = []
 
         # Create cursor
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from customers')
@@ -21,7 +22,7 @@ class CustomerService(Service):
         return models
 
     def getCustomerById(self, customerId):
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from customers WHERE id=?', [ customerId ])
@@ -41,7 +42,7 @@ class CustomerService(Service):
         if not customer.validate():
             return False
 
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
@@ -70,7 +71,7 @@ class CustomerService(Service):
         return cursor.rowcount != 0
 
     def deleteCustomer(self, customer):
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 

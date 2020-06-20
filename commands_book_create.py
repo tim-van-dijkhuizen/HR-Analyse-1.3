@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 from helpers_validation_helper import ValidationHelper
 from models_book import Book
@@ -7,8 +8,8 @@ class CommandBookCreate(Command):
     def getUsage(self):
         return 'book/create'
 
-    def execute(self, app, args):
-        bookService = app.getService('books')
+    def execute(self, args):
+        bookService = App.instance.getService('books')
 
         # Get arguments
         title = self.askQuestion('Enter the title:')

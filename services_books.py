@@ -1,3 +1,4 @@
+from base_app import App
 from base_service import Service
 from models_book import Book
 
@@ -10,7 +11,7 @@ class BookService(Service):
         models = []
 
         # Create cursor
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from books')
@@ -21,7 +22,7 @@ class BookService(Service):
         return models
 
     def getBookById(self, bookId):
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from books WHERE id=?', [ bookId ])
@@ -41,7 +42,7 @@ class BookService(Service):
         if not book.validate():
             return False
 
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
@@ -67,7 +68,7 @@ class BookService(Service):
         return cursor.rowcount != 0
 
     def deleteBook(self, book):
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 

@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 from helpers_validation_helper import ValidationHelper
 
@@ -6,8 +7,8 @@ class CommandCustomerEdit(Command):
     def getUsage(self):
         return 'customer/edit <customerId>'
 
-    def execute(self, app, args):
-        customerService = app.getService('customers')
+    def execute(self, args):
+        customerService = App.instance.getService('customers')
 
         # Check args length
         if len(args) != 1:

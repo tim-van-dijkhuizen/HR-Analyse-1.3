@@ -8,7 +8,7 @@ class Command(Component):
     def getUsage(self):
         raise NotImplementedError()
 
-    def execute(self, app, args):
+    def execute(self, args):
         raise NotImplementedError()
 
     def showEmpty(self):

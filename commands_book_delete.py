@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 
 class CommandBookDelete(Command):
@@ -5,8 +6,8 @@ class CommandBookDelete(Command):
     def getUsage(self):
         return 'book/delete <bookId>'
 
-    def execute(self, app, args):
-        bookService = app.getService('books')
+    def execute(self, args):
+        bookService = App.instance.getService('books')
 
         # Check args length
         if len(args) != 1:

@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 
 class CommandAuthorList(Command):
@@ -5,8 +6,8 @@ class CommandAuthorList(Command):
     def getUsage(self):
         return 'author/list'
 
-    def execute(self, app, args):
-        authorService = app.getService('authors')
+    def execute(self, args):
+        authorService = App.instance.getService('authors')
 
         self.showEmpty()
         self.showInfo('id - firstName - lastName')

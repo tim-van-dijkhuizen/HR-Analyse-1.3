@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 from helpers_validation_helper import ValidationHelper
 
@@ -6,8 +7,8 @@ class CommandBookEdit(Command):
     def getUsage(self):
         return 'book/edit <bookId>'
 
-    def execute(self, app, args):
-        bookService = app.getService('books')
+    def execute(self, args):
+        bookService = App.instance.getService('books')
 
         # Check args length
         if len(args) != 1:

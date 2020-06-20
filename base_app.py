@@ -31,9 +31,6 @@ class App(Component):
     
     # Registers a service and returns the instance.
     def registerService(self, service, config):
-        config['app'] = self
-        
-        # Create and register service
         instance = service(config)
 
         # Register instance

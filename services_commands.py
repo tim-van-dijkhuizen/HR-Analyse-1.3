@@ -1,3 +1,4 @@
+from base_app import App
 import traceback
 from base_service import Service
 from errors_argument_exception import ArgumentError
@@ -10,7 +11,7 @@ class CommandService(Service):
         return 'commands'
 
     def init(self):
-        while self.app.running:
+        while App.instance.running:
             line = input()
             args = line.split(' ')
             command = args.pop(0)
@@ -18,7 +19,7 @@ class CommandService(Service):
             # Try to run the command
             if command in self.commands:
                 try:
-                    self.commands[command].execute(self.app, args)
+                    self.commands[command].execute(args)
                 except ArgumentError as e:
                     print(str(e))
                 except Exception as e:

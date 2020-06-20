@@ -1,3 +1,4 @@
+from base_app import App
 from base_service import Service
 from models_author import Author
 
@@ -10,7 +11,7 @@ class AuthorService(Service):
         models = []
 
         # Create cursor
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from authors')
@@ -21,7 +22,7 @@ class AuthorService(Service):
         return models
 
     def getAuthorById(self, authorId):
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from authors WHERE id=?', [ authorId ])
@@ -41,7 +42,7 @@ class AuthorService(Service):
         if not author.validate():
             return False
 
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
@@ -63,7 +64,7 @@ class AuthorService(Service):
         return cursor.rowcount != 0
 
     def deleteAuthor(self, author):
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 

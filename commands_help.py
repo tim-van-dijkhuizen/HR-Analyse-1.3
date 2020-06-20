@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 
 class CommandHelp(Command):
@@ -5,8 +6,8 @@ class CommandHelp(Command):
     def getUsage(self):
         return 'help'
 
-    def execute(self, app, args):
-        commandService = app.getService('commands')
+    def execute(self, args):
+        commandService = App.instance.getService('commands')
 
         self.showEmpty()
         self.showInfo('Available commands:')

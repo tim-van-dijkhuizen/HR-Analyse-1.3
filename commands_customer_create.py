@@ -1,3 +1,4 @@
+from base_app import App
 from base_command import Command
 from helpers_validation_helper import ValidationHelper
 from models_customer import Customer
@@ -7,8 +8,8 @@ class CommandCustomerCreate(Command):
     def getUsage(self):
         return 'customer/create'
 
-    def execute(self, app, args):
-        customerService = app.getService('customers')
+    def execute(self, args):
+        customerService = App.instance.getService('customers')
 
         # Get arguments
         firstName = self.askQuestion('Enter the first name:')

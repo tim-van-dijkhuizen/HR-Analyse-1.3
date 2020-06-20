@@ -1,3 +1,4 @@
+from base_app import App
 from base_service import Service
 from models_book_loan import BookLoan
 
@@ -10,7 +11,7 @@ class BookLoanService(Service):
         models = []
 
         # Create cursor
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from book_loans')
@@ -21,7 +22,7 @@ class BookLoanService(Service):
         return models
 
     def getBookLoanById(self, bookLoanId):
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from book_loans WHERE id=?', [ bookLoanId ])
@@ -35,7 +36,7 @@ class BookLoanService(Service):
         return BookLoan.fromDataRow(row)
 
     def getBookLoanByItem(self, bookItemId):
-        cursor = self.app.getService('database').createCursor()
+        cursor = App.instance.getService('database').createCursor()
 
         # Execute select
         cursor.execute('SELECT * from book_loans WHERE bookItemId=?', [ bookItemId ])
@@ -55,7 +56,7 @@ class BookLoanService(Service):
         if not bookLoan.validate():
             return False
 
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
@@ -77,7 +78,7 @@ class BookLoanService(Service):
         return cursor.rowcount != 0
 
     def deleteBookLoan(self, bookLoan):
-        database = self.app.getService('database')
+        database = App.instance.getService('database')
         connection = database.getConnection()
         cursor = database.createCursor()
 
