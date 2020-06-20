@@ -37,6 +37,21 @@ class BookItemService(Service):
 
         return BookItem.fromDataRow(row)
 
+    # Returns all book items by bookId
+    def getBookItemsByBook(self, bookId):
+        models = []
+
+        # Create cursor
+        cursor = App.instance.getService('database').createCursor()
+
+        # Execute select
+        cursor.execute('SELECT * from book_items WHERE bookId=?', [ bookId ])
+
+        for row in cursor.fetchall():
+            models.append(BookItem.fromDataRow(row))
+
+        return models
+
     # Saves a book item
     def saveBookItem(self, bookItem):
         isNew = bookItem.id == None

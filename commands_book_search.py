@@ -8,6 +8,7 @@ class CommandBookSearch(Command):
 
     def execute(self, args):
         bookService = App.instance.getService('books')
+        bookItemsService = App.instance.getService('bookItems')
 
         # Find book
         query = self.askQuestion("What book are you looking for?")
@@ -15,7 +16,6 @@ class CommandBookSearch(Command):
 
         self.showEmpty()
         self.showInfo('id - title - authorId - year - country - language - pages')
-        self.showLine()
 
         # Show message when there are no results
         if not books:
@@ -23,6 +23,16 @@ class CommandBookSearch(Command):
 
         # Print books
         for book in books:
+            self.showLine()
             self.showInfo(book)
+
+            # Print book items
+            bookItems = bookItemsService.getBookItemsByBook(book.id)
+            
+            self.showEmpty()
+            self.showInfo('Available book item ID\'s:')
+
+            for bookItem in bookItems:
+                self.showInfo(' - ' + str(bookItem.id))
 
         self.showEmpty()
