@@ -6,12 +6,12 @@ from helpers_validation_helper import ValidationHelper
 from models_author import Author
 from models_book import Book
 
-class CommandImportBooks(Command):
+class CommandImportCustomers(Command):
 
     requiredKeys = { 'author', 'title', 'year', 'country', 'language', 'pages' }
 
     def getUsage(self):
-        return 'import/books'
+        return 'import/customers'
 
     def execute(self, args):
         authorService = App.instance.getService('authors')
