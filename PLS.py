@@ -1,4 +1,5 @@
 from base_app import App
+from config_app import config as appConfig
 from config_services import services as serviceList
 
 # =======================================================
@@ -6,7 +7,7 @@ from config_services import services as serviceList
 # =======================================================
 
 # Create app
-app = App()
+app = App(appConfig)
 
 print('-------------------------------------------------------------------------------------------')
 print('Welcome to Public Library System')

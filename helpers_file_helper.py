@@ -1,11 +1,9 @@
 import os
 import shutil
 from pathlib import Path
+from base_app import App
 
 class FileHelper:
-
-    # All files are stored within this directory
-    basePath = 'C:/temp/PLS/'
 
     # Returns a list of files in the specified directory
     @staticmethod
@@ -21,7 +19,7 @@ class FileHelper:
     # Returns a file path based on the specified path
     @staticmethod
     def createFilePath(path, root = False):
-        return Path((FileHelper.basePath if not root else '') + path)
+        return Path((App.instance.dataPath if not root else App.instance.rootPath) + path)
 
     # Copies a file. You must pass a Path object.
     # Use createFilePath to create a Path object.
