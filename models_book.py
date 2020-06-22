@@ -14,7 +14,7 @@ class Book(Model):
     def validate(self):
         authorService = App.instance.getService('authors')
 
-        if self.title == None:
+        if self.title == None or len(self.title) == 0:
             self.addError('title', 'Title is required')
             return False
 
@@ -34,11 +34,15 @@ class Book(Model):
             self.addError('year', 'Year is required')
             return False
 
-        if len(str(self.year)) > 4:
-            self.addError('year', 'Year cannot be longer than 4 characters')
+        if ValidationHelper.parseInt(self.year) == False:
+            self.addError('year', 'Year must be a valid number')
             return False
 
-        if self.country == None:
+        if len(str(self.year)) > 5:
+            self.addError('year', 'Year cannot be longer than 5 characters')
+            return False
+
+        if self.country == None or len(self.country) == 0:
             self.addError('country', 'Country is required')
             return False
 
@@ -46,7 +50,7 @@ class Book(Model):
             self.addError('country', 'Country cannot be longer than 50 characters')
             return False
 
-        if self.language == None:
+        if self.language == None or len(self.language) == 0:
             self.addError('language', 'Language is required')
             return False
 

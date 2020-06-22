@@ -51,7 +51,7 @@ class DatabaseService(Service):
             "id INTEGER PRIMARY KEY," +
             "title VARCHAR(255) NOT NULL," +
             "authorId INTEGER NOT NULL," +
-            "year INTEGER(4) NOT NULL," +
+            "year INTEGER(5) NOT NULL," +
             "country VARCHAR(50) NOT NULL," +
             "language VARCHAR(50) NOT NULL," +
             "pages INTEGER NOT NULL," +

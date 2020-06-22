@@ -6,16 +6,12 @@ class Author(Model):
     lastName = None
 
     def validate(self):
-        if self.firstName == None:
+        if self.firstName == None or len(self.firstName) == 0:
             self.addError('firstName', 'Firstname is required')
             return False
 
         if len(self.firstName) > 50:
             self.addError('firstName', 'Firstname cannot be longer than 50 characters')
-            return False
-
-        if self.lastName == None:
-            self.addError('lastName', 'Lastname is required')
             return False
 
         if len(self.lastName) > 50:

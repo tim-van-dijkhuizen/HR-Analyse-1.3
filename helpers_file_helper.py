@@ -20,8 +20,8 @@ class FileHelper:
 
     # Returns a file path based on the specified path
     @staticmethod
-    def createFilePath(path):
-        return Path(FileHelper.basePath + path)
+    def createFilePath(path, root = False):
+        return Path((FileHelper.basePath if not root else '') + path)
 
     # Copies a file. You must pass a Path object.
     # Use createFilePath to create a Path object.

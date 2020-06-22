@@ -2,11 +2,11 @@ from base_component import Component
 
 class Model(Component):
 
-    # List of validation errors
-    errors = {}
-
-    # Base attributes
     id = None
+
+    def __init__(self, config = {}):
+        super(Model, self).__init__(config)
+        self.errors = {}
 
     # Validates the model
     def validate(self):

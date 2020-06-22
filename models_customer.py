@@ -13,7 +13,7 @@ class Customer(Model):
     telephone = None
 
     def validate(self):
-        if self.firstName == None:
+        if self.firstName == None or len(self.firstName) == 0:
             self.addError('firstName', 'Firstname is required')
             return False
 
@@ -21,7 +21,7 @@ class Customer(Model):
             self.addError('firstName', 'Firstname cannot be longer than 50 characters')
             return False
 
-        if self.lastName == None:
+        if self.lastName == None or len(self.lastName) == 0:
             self.addError('lastName', 'Lastname is required')
             return False
 
@@ -33,7 +33,7 @@ class Customer(Model):
             self.addError('gender', 'Gender must be either M (male) or F (female)')
             return False
 
-        if self.language == None:
+        if self.language == None or len(self.language) == 0:
             self.addError('language', 'Language is required')
             return False
 
@@ -41,7 +41,7 @@ class Customer(Model):
             self.addError('language', 'Language cannot be longer than 50 characters')
             return False
 
-        if self.street == None:
+        if self.street == None or len(self.street) == 0:
             self.addError('street', 'Street is required')
             return False
 
@@ -49,7 +49,7 @@ class Customer(Model):
             self.addError('street', 'Street cannot be longer than 50 characters')
             return False
 
-        if self.zipcode == None:
+        if self.zipcode == None or len(self.zipcode) == 0:
             self.addError('zipcode', 'Zipcode is required')
             return False
 
@@ -57,7 +57,7 @@ class Customer(Model):
             self.addError('zipcode', 'Zipcode cannot be longer than 20 characters')
             return False
 
-        if self.city == None:
+        if self.city == None or len(self.city) == 0:
             self.addError('city', 'City is required')
             return False
 
@@ -65,7 +65,7 @@ class Customer(Model):
             self.addError('city', 'City cannot be longer than 50 characters')
             return False
 
-        if self.email == None:
+        if self.email == None or len(self.email) == 0:
             self.addError('email', 'Email is required')
             return False
 
@@ -73,7 +73,7 @@ class Customer(Model):
             self.addError('email', 'Email cannot be longer than 255 characters')
             return False
 
-        if self.telephone == None:
+        if self.telephone == None or len(self.telephone) == 0:
             self.addError('telephone', 'Telephone is required')
             return False
 
