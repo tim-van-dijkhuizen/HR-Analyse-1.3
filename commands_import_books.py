@@ -28,7 +28,7 @@ class CommandImportBooks(Command):
             with open(filePath, encoding = 'utf8') as fileContent:
                 data = json.load(fileContent)
         except json.JSONDecodeError:
-            self.showError('Failed to load json. The file contains invalid json.')
+            self.showError('Failed to load json. The file contains invalid data.')
         except Exception:
             self.showError('Failed to load json. Unable to read file contents.')
 
